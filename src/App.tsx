@@ -5,7 +5,7 @@ import PublicRoutes from "./AppRoutes/PublicRoutes";
 function App() {
   return (
     <PrimeReactProvider>
-      <BrowserRouter basename="www.agriculturae.com">
+      <BrowserRouter>
         <PublicRoutes />
       </BrowserRouter>
     </PrimeReactProvider>
