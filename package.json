@@ -1,8 +1,9 @@
 {
-  "name": "farmnex-react",
+  "name": "agriculturae",
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "homepage": "www.agriculturae.com",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
