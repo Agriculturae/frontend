@@ -1,0 +1,7 @@
+.group:hover .flex {
+  margin-bottom: 2rem;
+}
+
+.group:hover p {
+  transform: translateY(-10px);
+}

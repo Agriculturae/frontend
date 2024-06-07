@@ -8,9 +8,10 @@ export default {
       },
       colors: {
         primary: "#1c603a",
-        "primary-light": "#8de29a", // "light" is a reserved word in Tailwind, so we use "light" instead of "light
+        "primary-light": "#9EC253", // "light" is a reserved word in Tailwind, so we use "light" instead of "light
         light: "#ebfaeb",
-        secondary: "#ff794d",
+        secondary: "#D78C1D",
+        dark: "#4D4D4D",
       },
     },
   },
