@@ -7,8 +7,11 @@ import WasteIcon from "/media/icons/waste.svg";
 import ProduceIcon from "/media/icons/produce.svg";
 import FarmerIcon from "/media/icons/farmer.svg";
 import { Accordion, AccordionTab } from "primereact/accordion";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+
   const smoothScroll = (targetId: string) => {
     const target = document.getElementById(targetId);
     if (target) {
@@ -87,8 +90,13 @@ const Home = () => {
                 </ul>
 
                 {/* Get Started Button */}
-                <button className="flex items-center justify-center space-x-4 px-8 bg-gradient-to-b from-primary-light to-primary rounded-[20px] h-[60px] shadow-lg shadow-primary hover:scale-105  transition-all duration-300 z-20">
-                  <p className="text-white font-semibold">Coming Soon</p>
+                <button
+                  className="flex items-center justify-center space-x-4 px-8 bg-gradient-to-b from-light-green to-primary rounded-[20px] h-[60px] shadow-lg shadow-primary hover:scale-105  transition-all duration-300 z-20"
+                  onClick={() => {
+                    navigate("/auth");
+                  }}
+                >
+                  <p className="text-white font-semibold">Get Started</p>
                   <FaChevronRight className="text-white" />
                 </button>
               </div>
@@ -270,7 +278,7 @@ const Home = () => {
 
           {/* Footer */}
           <div
-            className="flex flex-col w-full bg-primary-light min-h-[700px] font-montserrat p-24"
+            className="flex flex-col w-full bg-light-green min-h-[700px] font-montserrat p-24"
             id="footer"
           >
             <div className="h-[300px]"></div>
@@ -325,7 +333,7 @@ const Home = () => {
                   your business grow and thrive in the competitive agricultural
                   market.
                 </p>
-                <button className="flex items-center justify-center space-x-4 px-8 bg-gradient-to-b from-primary-light to-primary rounded-[20px] h-[60px] shadow-lg border border-primary shadow-primary hover:scale-105  transition-all duration-300 z-20">
+                <button className="flex items-center justify-center space-x-4 px-8 bg-gradient-to-b from-light-green to-primary rounded-[20px] h-[60px] shadow-lg border border-primary shadow-primary hover:scale-105  transition-all duration-300 z-20">
                   <p className="text-white font-semibold">Coming Soon !</p>
                   <FaChevronRight className="text-white" />
                 </button>
