@@ -35,13 +35,4 @@ jobs:
         run: |
           npm install
           npm run build
-
-      - name: Deploy frontend to VDS
-        run: |
-          npm i 
-          npm run build 
           scp -r dist root@37.148.210.147:/var/www/agriculturae.com/
-
-      - name: Deploy backend to VDS
-        run: |
-          ssh root@37.148.210.147 "cd agriculturae-be && git pull origin main && npm install && pm2 restart ecosystem.config.js --env production"
