@@ -38,8 +38,7 @@ jobs:
 
       - name: Deploy frontend to VDS
         run: |
-          ls
-          scp -r agriculturae-react/dist root@37.148.210.147:/var/www/agriculturae.com/
+          scp -r dist root@37.148.210.147:/var/www/agriculturae.com/
 
       - name: Deploy backend to VDS
         run: |
