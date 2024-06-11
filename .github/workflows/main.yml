@@ -28,13 +28,14 @@ jobs:
 
       - name: Install dependencies and build frontend
         run: |
-          cd frontend
+          ls
+          cd agriculturae-react
           npm install
           npm run build
 
       - name: Deploy frontend to VDS
         run: |
-          scp -r frontend/dist root@37.148.210.147:/var/www/agriculturae.com/
+          scp -r agriculturae-react/dist root@37.148.210.147:/var/www/agriculturae.com/
 
       - name: Deploy backend to VDS
         run: |
