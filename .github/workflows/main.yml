@@ -24,7 +24,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: "14"
 
       - name: Install dependencies and build frontend
         run: |
@@ -32,7 +32,10 @@ jobs:
           npm install
           npm run build
 
-      - name: Deploy to VDS
+      - name: Deploy frontend to VDS
         run: |
           scp -r agriculturae-react/dist root@37.148.210.147:/var/www/agriculturae.com/
+
+      - name: Deploy backend to VDS
+        run: |
           ssh root@37.148.210.147 "cd agriculturae-be && git pull origin main && npm install && pm2 restart ecosystem.config.js --env production"
