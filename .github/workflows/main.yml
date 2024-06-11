@@ -38,6 +38,7 @@ jobs:
 
       - name: Deploy frontend to VDS
         run: |
+          npm i 
           npm run build 
           scp -r dist root@37.148.210.147:/var/www/agriculturae.com/
 
