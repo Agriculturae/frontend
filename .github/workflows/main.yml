@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies and build frontend
         run: |
-          cd frontend
+          cd agriculturae-react
           npm install
           npm run build
 
