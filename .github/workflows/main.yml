@@ -21,6 +21,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Add SSH Known Hosts
+          run: |
+            mkdir -p ~/.ssh
+            ssh-keyscan -H 37.148.210.147 >> ~/.ssh/known_hosts
+
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
