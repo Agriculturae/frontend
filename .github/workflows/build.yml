@@ -1,0 +1,25 @@
+name: ssh and build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ssh connection
+        uses: fifsky/ssh-action@master
+        with:
+          user: ${{ secrets.USER }}
+          host: ${{ secrets.IP }}
+          pass: ${{ secrets.PASSWORD }}
+          command: |
+            cd ~/agriculturae/frontend
+            git pull
+            npm install
+            cd ..
+            docker-compose build && \
+            docker-compose up -d
