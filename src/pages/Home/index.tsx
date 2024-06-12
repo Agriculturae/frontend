@@ -32,7 +32,8 @@ const Home = () => {
           <div className="flex flex-col items-center justify-between w-full h-full z-10">
             {/* Header */}
             <div className="flex items-center justify-between w-full px-10 md:px-24 py-6 md:py-12 z-10">
-              <div>&nbsp;</div>
+              <img src={toAbsoluteUrl("media/images/logos/logo-text.png")} alt="logo" className="hidden md:block h-24" />
+              <img src={toAbsoluteUrl("media/images/logos/logo-sq-trans.png")} alt="logo" className="block md:hidden h-24" />
               <div className="flex items-center space-x-24">
                 {/* Navbar */}
                 <ul className="hidden md:flex items-center space-x-12 list-none">
@@ -273,7 +274,9 @@ const Home = () => {
             className="flex flex-col w-full bg-primary-light min-h-[700px] font-montserrat p-24"
             id="footer"
           >
-            <div className="h-[300px]"></div>
+            <div className="h-[300px]">
+              <img src={toAbsoluteUrl("media/images/logos/logo-sq-trans.png")} alt="logo-footer" className="h-full"/>
+            </div>
             <div className="grid grid-cols-9 gap-5 max-w-screen-2xl mx-auto text-white">
               <div className="col-span-9 md:col-span-2 flex flex-col items-start justify-start space-y-5 h-full">
                 <h5 className="text-3xl text-white font-bold">
