@@ -3,6 +3,13 @@ import { Formik } from "formik";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import {
+  loginFailure,
+  loginStart,
+  loginSuccess,
+} from "../../redux/slices/authSlice";
 
 const initialValues = {
   email: "",
@@ -15,6 +22,7 @@ const validationSchema = Yup.object({
 });
 
 const Login = () => {
+  const dispatch = useDispatch();
   return (
     <div className="flex flex-col items-center justify-center w-full h-full">
       <div className="text-5xl font-bold text-secondary font-montserrat mb-12">
@@ -24,13 +32,15 @@ const Login = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
-          await fetch("http://localhost:3000/auth/login", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          }).then((response) => console.log(response));
+          dispatch(loginStart());
+
+          try {
+            const response = await axios.post("/api/login", values);
+            const { accessToken, refreshToken, user } = response.data;
+            dispatch(loginSuccess({ accessToken, refreshToken, user }));
+          } catch (error) {
+            dispatch(loginFailure(error));
+          }
         }}
       >
         {({
