@@ -22,7 +22,7 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       const refreshToken = store.getState().auth.refreshToken;
       try {
-        const response = await axios.post("/api/refresh-token", {
+        const response = await axios.post("/auth/refresh-token", {
           token: refreshToken,
         });
         store.dispatch({

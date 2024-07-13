@@ -38,10 +38,6 @@ const authSlice = createSlice({
       localStorage.setItem("accessToken", action.payload.accessToken);
       localStorage.setItem("refreshToken", action.payload.refreshToken);
     },
-    loginFailure(state, action: PayloadAction<string>) {
-      state.status = "failed";
-      state.error = action.payload;
-    },
     logout(state) {
       state.user = null;
       state.accessToken = null;
@@ -59,7 +55,6 @@ const authSlice = createSlice({
 export const {
   loginStart,
   loginSuccess,
-  loginFailure,
   logout,
   refreshAccessToken,
 } = authSlice.actions;
