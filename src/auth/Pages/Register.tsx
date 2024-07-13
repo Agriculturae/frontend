@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "primereact/button";
 import { Link, useNavigate } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
+import api from "../api/api";
 
 const initialValues = {
   name: "",
@@ -64,32 +65,23 @@ const Register = () => {
           validationSchema={validationSchema}
           onSubmit={(values) => {
             setLoading(true);
-            fetch("http://localhost:3001/auth/signup", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
+
+            api
+              .post("/auth/signup", {
                 name: values.name,
                 surname: values.surname,
                 email: values.email,
                 password: values.password,
                 type: userType,
-              }),
-            })
+              })
               .then((response) => {
-                if (response.ok) {
+                if (response.status === 201) {
                   navigate("/auth/login");
                 } else {
-                  return response.json();
+                  return response;
                 }
               })
-              .then((data) => {
-                if (data) {
-                  setErrorMessage(data.error);
-                }
-              })
-              .catch((error) => console.error(error))
+              .catch((error) => setErrorMessage(error.response.data.error))
               .finally(() => setLoading(false));
           }}
         >

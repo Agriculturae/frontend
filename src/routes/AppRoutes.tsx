@@ -1,14 +1,17 @@
+import { BrowserRouter } from "react-router-dom";
 import PrivateRoutes from "./PrivateRoutes";
 import PublicRoutes from "./PublicRoutes";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const AppRoutes = () => {
-  const user = null;
+  const accessToken = useSelector((state: RootState) => state.auth.accessToken);
 
   return (
-    <>
-      {user && <PrivateRoutes />}
+    <BrowserRouter>
+      {accessToken && <PrivateRoutes />}
       <PublicRoutes />
-    </>
+    </BrowserRouter>
   );
 };
 

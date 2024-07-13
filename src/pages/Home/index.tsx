@@ -8,9 +8,15 @@ import ProduceIcon from "/media/icons/produce.svg";
 import FarmerIcon from "/media/icons/farmer.svg";
 import { Accordion, AccordionTab } from "primereact/accordion";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const Home = () => {
+  const isTest = import.meta.env.VITE_IS_TEST;
+
   const navigate = useNavigate();
+
+  const accessToken = useSelector((state: RootState) => state.auth.accessToken);
 
   const smoothScroll = (targetId: string) => {
     const target = document.getElementById(targetId);
@@ -35,8 +41,16 @@ const Home = () => {
           <div className="flex flex-col items-center justify-between w-full h-full z-10">
             {/* Header */}
             <div className="flex items-center justify-between w-full px-10 md:px-24 py-6 md:py-12 z-10">
-              <img src={toAbsoluteUrl("media/images/logos/logo-text.png")} alt="logo" className="hidden md:block h-24" />
-              <img src={toAbsoluteUrl("media/images/logos/logo-sq-trans.png")} alt="logo" className="block md:hidden h-24" />
+              <img
+                src={toAbsoluteUrl("media/images/logos/logo-text.png")}
+                alt="logo"
+                className="hidden md:block h-24"
+              />
+              <img
+                src={toAbsoluteUrl("media/images/logos/logo-sq-trans.png")}
+                alt="logo"
+                className="block md:hidden h-24"
+              />
               <div className="flex items-center space-x-24">
                 {/* Navbar */}
                 <ul className="hidden md:flex items-center space-x-12 list-none">
@@ -91,15 +105,28 @@ const Home = () => {
                 </ul>
 
                 {/* Get Started Button */}
-                <button
-                  className="flex items-center justify-center space-x-4 px-8 bg-gradient-to-b from-light-green to-primary rounded-[20px] h-[60px] shadow-lg shadow-primary hover:scale-105  transition-all duration-300 z-20"
-                  onClick={() => {
-                    navigate("/auth");
-                  }}
-                >
-                  <p className="text-white font-semibold">Get Started</p>
-                  <FaChevronRight className="text-white" />
-                </button>
+                {!isTest ? (
+                  <button
+                    className="flex items-center justify-center space-x-4 px-8 bg-gradient-to-b from-light-green to-primary rounded-[20px] h-[60px] shadow-lg shadow-primary hover:scale-105  transition-all duration-300 z-20"
+                    onClick={() => {}}
+                  >
+                    <p className="text-white font-semibold">Coming Soon !</p>
+                  </button>
+                ) : (
+                  <button
+                    className="flex items-center justify-center space-x-4 px-8 bg-gradient-to-b from-light-green to-primary rounded-[20px] h-[60px] shadow-lg shadow-primary hover:scale-105  transition-all duration-300 z-20"
+                    onClick={() => {
+                      if (accessToken) {
+                        navigate("/dashboard");
+                      } else {
+                        navigate("/auth/login");
+                      }
+                    }}
+                  >
+                    <p className="text-white font-semibold">Get Started</p>
+                    <FaChevronRight className="text-white" />
+                  </button>
+                )}
               </div>
             </div>
             <h1 className="text-5xl text-white font-semibold font-montserrat p-5 md:p-0 text-center ">
@@ -283,7 +310,11 @@ const Home = () => {
             id="footer"
           >
             <div className="h-[300px]">
-              <img src={toAbsoluteUrl("media/images/logos/logo-sq-trans.png")} alt="logo-footer" className="h-full"/>
+              <img
+                src={toAbsoluteUrl("media/images/logos/logo-sq-trans.png")}
+                alt="logo-footer"
+                className="h-full"
+              />
             </div>
             <div className="grid grid-cols-9 gap-5 max-w-screen-2xl mx-auto text-white">
               <div className="col-span-9 md:col-span-2 flex flex-col items-start justify-start space-y-5 h-full">
@@ -336,10 +367,28 @@ const Home = () => {
                   your business grow and thrive in the competitive agricultural
                   market.
                 </p>
-                <button className="flex items-center justify-center space-x-4 px-8 bg-gradient-to-b from-light-green to-primary rounded-[20px] h-[60px] shadow-lg border border-primary shadow-primary hover:scale-105  transition-all duration-300 z-20">
-                  <p className="text-white font-semibold">Coming Soon !</p>
-                  <FaChevronRight className="text-white" />
-                </button>
+                {!isTest ? (
+                  <button
+                    className="flex items-center justify-center space-x-4 px-8 bg-gradient-to-b from-light-green to-primary rounded-[20px] h-[60px] shadow-lg shadow-primary hover:scale-105  transition-all duration-300 z-20"
+                    onClick={() => {}}
+                  >
+                    <p className="text-white font-semibold">Coming Soon !</p>
+                  </button>
+                ) : (
+                  <button
+                    className="flex items-center justify-center space-x-4 px-8 bg-gradient-to-b from-light-green to-primary rounded-[20px] h-[60px] shadow-lg shadow-primary hover:scale-105  transition-all duration-300 z-20"
+                    onClick={() => {
+                      if (accessToken) {
+                        navigate("/dashboard");
+                      } else {
+                        navigate("/auth/login");
+                      }
+                    }}
+                  >
+                    <p className="text-white font-semibold">Get Started</p>
+                    <FaChevronRight className="text-white" />
+                  </button>
+                )}
               </div>
             </div>
           </div>

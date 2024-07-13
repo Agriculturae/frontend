@@ -20,9 +20,8 @@ const validationSchema = Yup.object({
 });
 
 const Login = () => {
-
   const [error, setError] = useState<string | null>(null);
-  
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,7 +42,7 @@ const Login = () => {
             const { accessToken, refreshToken, user } = response.data;
             dispatch(loginSuccess({ accessToken, refreshToken, user }));
 
-            if (user.isActive) {
+            if (user.active) {
               navigate("/dashboard");
             } else {
               navigate("/auth/mail-verification");

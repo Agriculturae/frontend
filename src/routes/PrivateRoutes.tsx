@@ -1,8 +1,12 @@
+import { Route, Routes } from "react-router-dom";
+import Dashboard from "../pages/Dashboard";
 
 const PrivateRoutes = () => {
   return (
-    <div>PrivateRoutes</div>
-  )
-}
+    <Routes>
+      <Route path="dashboard" element={<Dashboard />} />
+    </Routes>
+  );
+};
 
-export default PrivateRoutes
+export default PrivateRoutes;

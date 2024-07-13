@@ -9,7 +9,7 @@ interface UserModel {
   surname: string;
   email: string;
   type: string;
-  isActive: boolean;
+  active: boolean;
 }
 
 interface LoginPayloadUserModel {
