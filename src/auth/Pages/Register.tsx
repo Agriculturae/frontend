@@ -1,9 +1,10 @@
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "primereact/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
+import api from "../api/api";
 
 const initialValues = {
   name: "",
@@ -28,6 +29,15 @@ const validationSchema = Yup.object({
 const Register = () => {
   const [userType, setUserType] = useState<"Farmer" | "Buyer" | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loading) {
+      setErrorMessage(null);
+    }
+  }, [loading]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full space-y-12">
@@ -55,21 +65,23 @@ const Register = () => {
           validationSchema={validationSchema}
           onSubmit={(values) => {
             setLoading(true);
-            fetch("http://localhost:3000/auth/signup", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
+
+            api
+              .post("/auth/signup", {
                 name: values.name,
                 surname: values.surname,
                 email: values.email,
                 password: values.password,
                 type: userType,
-              }),
-            })
-              .then((response) => console.log(response))
-              .catch((error) => console.error(error))
+              })
+              .then((response) => {
+                if (response.status === 201) {
+                  navigate("/auth/login");
+                } else {
+                  return response;
+                }
+              })
+              .catch((error) => setErrorMessage(error.response.data.error))
               .finally(() => setLoading(false));
           }}
         >
@@ -197,6 +209,11 @@ const Register = () => {
                   label="Sign Up"
                   loading={loading}
                 />
+                {errorMessage && (
+                  <span className="text-center text-sm text-red-400">
+                    {errorMessage}
+                  </span>
+                )}
               </form>
             );
           }}

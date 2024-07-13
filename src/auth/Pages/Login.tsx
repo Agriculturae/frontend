@@ -2,7 +2,12 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginStart, loginSuccess } from "../../redux/slices/authSlice";
+import api from "../api/api";
+import { useState } from "react";
+import axios from "axios";
 
 const initialValues = {
   email: "",
@@ -15,6 +20,11 @@ const validationSchema = Yup.object({
 });
 
 const Login = () => {
+  const [error, setError] = useState<string | null>(null);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col items-center justify-center w-full h-full">
       <div className="text-5xl font-bold text-secondary font-montserrat mb-12">
@@ -24,13 +34,32 @@ const Login = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
-          await fetch("http://localhost:3000/auth/login", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          }).then((response) => console.log(response));
+          dispatch(loginStart());
+
+          try {
+            const response = await api.post("/auth/login", values);
+            console.log(response);
+            const { accessToken, refreshToken, user } = response.data;
+            dispatch(loginSuccess({ accessToken, refreshToken, user }));
+
+            if (user.active) {
+              navigate("/dashboard");
+            } else {
+              navigate("/auth/mail-verification");
+            }
+          } catch (err) {
+            if (axios.isAxiosError(err)) {
+              // Axios specific error handling
+              if (err.response) {
+                setError(err.response.data.error);
+              } else {
+                setError(err.message);
+              }
+            } else {
+              // General error handling
+              setError("An unexpected error occurred");
+            }
+          }
         }}
       >
         {({
@@ -82,7 +111,7 @@ const Login = () => {
                     invalid={errors.password && touched.password ? true : false}
                   />
                   {errors.password && touched.password && (
-                    <div className="text-xs text-red-500 text-start">
+                    <div className="text-xs text-red-500 text-center">
                       {errors.password}
                     </div>
                   )}
@@ -101,6 +130,11 @@ const Login = () => {
                   type="submit"
                   label="Login"
                 />
+                {error && (
+                  <div className="text-xs text-red-500 text-center">
+                    {error}
+                  </div>
+                )}
               </form>
               <div className="text-sm text-gray-500 mt-12">
                 Don't have an account?{" "}

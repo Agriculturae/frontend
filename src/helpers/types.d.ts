@@ -9,4 +9,13 @@ interface UserModel {
   surname: string;
   email: string;
   type: string;
+  active: boolean;
+}
+
+interface LoginPayloadUserModel {
+  user: UserModel | null;
+  accessToken: string | null;
+  refreshToken: string | null;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
 }
