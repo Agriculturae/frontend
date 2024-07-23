@@ -5,16 +5,14 @@ interface AuthState {
   user: UserModel | null;
   accessToken: string | null;
   refreshToken: string | null;
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
+  role: string | null;
 }
 
 const initialState: AuthState = {
   user: null,
   accessToken: null,
   refreshToken: null,
-  status: "idle",
-  error: null,
+  role: null,
 };
 
 interface LoginPayload {
@@ -27,36 +25,28 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    loginStart(state) {
-      state.status = "loading";
-    },
-    loginSuccess(state, action: PayloadAction<LoginPayload>) {
-      state.status = "succeeded";
+    login(state, action: PayloadAction<LoginPayload>) {
       state.user = action.payload.user;
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
-      localStorage.setItem("accessToken", action.payload.accessToken);
-      localStorage.setItem("refreshToken", action.payload.refreshToken);
+      state.role = action.payload.user.type;
     },
     logout(state) {
       state.user = null;
       state.accessToken = null;
       state.refreshToken = null;
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
+      state.role = null;
+    },
+    updateUser(state, action: PayloadAction<UserModel>) {
+      state.user = action.payload;
     },
     refreshAccessToken(state, action: PayloadAction<string>) {
       state.accessToken = action.payload;
-      localStorage.setItem("accessToken", action.payload);
     },
   },
 });
 
-export const {
-  loginStart,
-  loginSuccess,
-  logout,
-  refreshAccessToken,
-} = authSlice.actions;
+export const { login, logout, updateUser, refreshAccessToken } =
+  authSlice.actions;
 
 export default authSlice.reducer;

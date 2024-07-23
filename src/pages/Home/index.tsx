@@ -1,6 +1,6 @@
 import { toAbsoluteUrl } from "../../helpers";
 import PromoteCard from "./components/PromoteCard";
-import styles from "./Home.module.css";
+import "./Home.css";
 import { FaChevronRight, FaChevronDown } from "react-icons/fa";
 import MarketIcon from "/media/icons/market.svg";
 import WasteIcon from "/media/icons/waste.svg";
@@ -27,22 +27,123 @@ const Home = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="">
+      <div>
         {/* Landing */}
-        <div className="relative flex flex-col items-center justify-between w-full h-[calc(100vh-200px)] overflow-x-hidden">
-          <video
-            src={toAbsoluteUrl("/media/videos/landing-video.mp4")}
-            autoPlay
-            muted
-            loop
-            className="absolute top-0 left-0 -z-20 w-full h-full object-cover blur-sm"
+        <div className="relative flex flex-col items-center justify-between w-full h-screen overflow-hidden">
+          <img
+            src={toAbsoluteUrl("/media/images/home/landing-bg.jpg")}
+            className="absolute top-0 left-0 -z-20 w-full h-full scale-[1.5] object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 -z-10" />
           <div className="flex flex-col items-center justify-between w-full h-full z-10">
+            <ul className="hidden md:flex items-center justify-around list-none pt-8 w-full">
+              <li className="nav-item">
+                <a
+                  href="#about-us"
+                  className="relative text-primary font-semibold text-2xl font-montserrat"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    smoothScroll("mission");
+                  }}
+                >
+                  Our Mission
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  href="#about-us"
+                  className="relative text-primary font-semibold text-2xl font-montserrat"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    smoothScroll("about-us");
+                  }}
+                >
+                  About Us
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  href="#about-us"
+                  className="relative text-primary font-semibold text-2xl font-montserrat"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    smoothScroll("affiliate");
+                  }}
+                >
+                  Affiliate
+                </a>
+              </li>
+              <li>
+                <img
+                  src={toAbsoluteUrl("/media/images/logos/logo-text.png")}
+                  alt="Logo"
+                  className="h-24"
+                />
+              </li>
+              <li className="nav-item">
+                <a
+                  href="#about-us"
+                  className="relative text-primary font-semibold text-2xl font-montserrat"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    smoothScroll("faq");
+                  }}
+                >
+                  FAQ
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  href="#about-us"
+                  className="relative text-primary font-semibold text-2xl font-montserrat"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    smoothScroll("footer");
+                  }}
+                >
+                  Contact Us
+                </a>
+              </li>
+              <button
+                className="flex items-center justify-center space-x-4 px-8 bg-gradient-to-b from-light-green to-primary rounded-[20px] h-[60px] shadow-lg shadow-primary hover:scale-105  transition-all duration-300 z-20"
+                onClick={() => {
+                  if (accessToken) {
+                    navigate("/dashboard");
+                  } else {
+                    navigate("/auth/login");
+                  }
+                }}
+              >
+                <p className="text-white font-semibold">Get Started</p>
+                <FaChevronRight className="text-white" />
+              </button>
+            </ul>
+            <ul className="flex md:hidden items-center pt-8 justify-between px-4 w-full">
+              <li>
+                <img
+                  src={toAbsoluteUrl("/media/images/logos/logo-sq-trans.png")}
+                  alt="Logo"
+                  className="h-24"
+                />
+              </li>
+              <button
+                className="flex items-center justify-center space-x-4 px-8 bg-gradient-to-b from-light-green to-primary rounded-[20px] h-[60px] shadow-lg shadow-primary hover:scale-105  transition-all duration-300 z-20"
+                onClick={() => {
+                  if (accessToken) {
+                    navigate("/dashboard");
+                  } else {
+                    navigate("/auth/login");
+                  }
+                }}
+              >
+                <p className="text-white font-semibold">Get Started</p>
+                <FaChevronRight className="text-white" />
+              </button>
+            </ul>
+
             {/* Header */}
-            <div className="flex items-center justify-between w-full px-10 md:px-24 py-6 md:py-12 z-10">
+            {/* <div className="flex items-center justify-between w-full px-10 md:px-24 py-6 md:py-12 z-10">
               <img
-                src={toAbsoluteUrl("media/images/logos/logo-text.png")}
+                src={toAbsoluteUrl("/media/images/logos/logo-text.png")}
                 alt="logo"
                 className="hidden md:block h-24"
               />
@@ -51,10 +152,9 @@ const Home = () => {
                 alt="logo"
                 className="block md:hidden h-24"
               />
-              <div className="flex items-center space-x-24">
-                {/* Navbar */}
+              <div className="flex items-center gap-24">
                 <ul className="hidden md:flex items-center space-x-12 list-none">
-                  <li className={styles["nav-item"]}>
+                  <li className="nav-item">
                     <a
                       href="#about-us"
                       className="relative text-white font-medium text-xl font-montserrat"
@@ -66,7 +166,7 @@ const Home = () => {
                       About Us
                     </a>
                   </li>
-                  <li className={styles["nav-item"]}>
+                  <li className="nav-item">
                     <a
                       href="#affiliate"
                       className="relative text-white font-medium text-xl font-montserrat"
@@ -78,7 +178,7 @@ const Home = () => {
                       Affiliate
                     </a>
                   </li>
-                  <li className={styles["nav-item"]}>
+                  <li className="nav-item">
                     <a
                       href="#faq"
                       className="relative text-white font-medium text-xl font-montserrat"
@@ -90,7 +190,7 @@ const Home = () => {
                       FAQ
                     </a>
                   </li>
-                  <li className={styles["nav-item"]}>
+                  <li className="nav-item">
                     <a
                       href="#contact-us"
                       className="relative text-white font-medium text-xl font-montserrat"
@@ -104,7 +204,6 @@ const Home = () => {
                   </li>
                 </ul>
 
-                {/* Get Started Button */}
                 {!isTest ? (
                   <button
                     className="flex items-center justify-center space-x-4 px-8 bg-gradient-to-b from-light-green to-primary rounded-[20px] h-[60px] shadow-lg shadow-primary hover:scale-105  transition-all duration-300 z-20"
@@ -128,10 +227,7 @@ const Home = () => {
                   </button>
                 )}
               </div>
-            </div>
-            <h1 className="text-5xl text-white font-semibold font-montserrat p-5 md:p-0 text-center ">
-              Connecting Farms to Future Markets
-            </h1>
+            </div> */}
             <div className="p-4 animate-bounce">
               <FaChevronDown className="text-5xl text-white" />
             </div>
@@ -140,12 +236,42 @@ const Home = () => {
 
         {/* About Us */}
         <div className="flex flex-col items-center">
-          <div className="flex items-center justify-center h-[200px]">
-            <h2 className="text-secondary text-4xl font-bold font-montserrat text-center">
-              Discover the future of farm-to-business
-            </h2>
-          </div>
-          <div className="flex flex-wrap items-center justify-center w-full space-y-6 md:space-y-0 space-x-0 md:space-x-12">
+          <div className="relative flex flex-wrap items-center justify-center w-full min-h-screen gap-x-24 gap-y-12 ">
+            <img
+              src={toAbsoluteUrl("/media/images/home/home1.png")}
+              alt="home1"
+              className="absolute -z-50 top-5 -left-[100px] scale-[2] w-[400px] rotate-45"
+            />
+            <img
+              src={toAbsoluteUrl("/media/images/home/home2.png")}
+              alt="home2"
+              className="absolute -z-50 -bottom-2 -left-[50px] scale-[2] w-[400px] rotate-45"
+            />
+            <img
+              src={toAbsoluteUrl("/media/images/home/home3.png")}
+              alt="home3"
+              className="absolute -z-50 top-1/3 -left-[100px] scale-[1.5] w-[400px] rotate-45"
+            />
+            <img
+              src={toAbsoluteUrl("/media/images/home/home4.png")}
+              alt="home4"
+              className="absolute -z-50 -top-[200px] -right-[70px] scale-[1.5] w-[400px] rotate-45"
+            />
+            <img
+              src={toAbsoluteUrl("/media/images/home/home5.png")}
+              alt="home5"
+              className="absolute -z-50 -right-[100px] scale-[1.5] w-[400px] rotate-45"
+            />
+            <img
+              src={toAbsoluteUrl("/media/images/home/home6.png")}
+              alt="home6"
+              className="absolute -z-50 top-1/2 -right-[230px] scale-[2] w-[500px] rotate-[30]"
+            />
+            <img
+              src={toAbsoluteUrl("/media/images/home/home7.png")}
+              alt="home7"
+              className="absolute -z-50 -bottom-[100px] -right-[100px] scale-[2] w-[500px] rotate-[30]"
+            />
             <PromoteCard
               icon={MarketIcon}
               title="Direct Market Access"
@@ -170,10 +296,16 @@ const Home = () => {
 
           {/* About Us */}
           <div
-            className="grid grid-cols-2 gap-2 mt-8 max-w-screen-lg p-5 md-p-0"
+            className="grid grid-cols-2 gap-24 w-full max-w-screen-xl p-5 md:p-0"
             id="about-us"
           >
-            <div className="h-[500px] col-span-2 md:col-span-1"></div>
+            <div className="flex col-span-2 md:col-span-1 justify-center items-center w-full my-2 md:my-24">
+              <img
+                src={toAbsoluteUrl("/media/images/home/about-us.png")}
+                alt="about-us"
+                className=""
+              />
+            </div>
             <div className="col-span-2 md:col-span-1 flex flex-col space-y-5 items-center md:items-start justify-center h-full">
               <h3 className="text-3xl text-primary font-bold">About Us</h3>
               <p className="text-dark text-lg font-semibold">
@@ -226,22 +358,39 @@ const Home = () => {
           </div>
 
           {/* FAQ */}
-          <div
-            className="flex flex-col space-y-5 items-center justify-center w-full my-12 max-w-screen-lg p-5 md:p-0"
-            id="faq"
-          >
-            <h3 className="text-3xl text-secondary font-bold">FAQ</h3>
-            <Accordion multiple activeIndex={[0]} className="w-full">
-              <AccordionTab header="How does Agriculturae work?">
-                <p className="m-2 font-semibold">
+          <div className="flex flex-col space-y-24 items-center justify-center w-full bg-[#0F5310] text-center py-24 px-4">
+            <h3 className="text-3xl text-white font-bold">FAQ</h3>
+            <Accordion
+              multiple
+              activeIndex={[0]}
+              className="w-full max-w-screen-lg"
+            >
+              <AccordionTab
+                header={
+                  <div className="relative flex items-center justify-center py-4 text-white font-semibold">
+                    <span>How does Agriculturae work?</span>
+                    <FaChevronDown className="absolute right-6" />
+                  </div>
+                }
+              >
+                <p className="text-light px-12">
                   Agriculturae connects farmers directly with supermarkets and
                   restaurants, streamlining the agricultural supply chain. The
                   platform facilitates efficient transactions, optimal pricing,
                   and improved logistics through a user-friendly interface.
                 </p>
               </AccordionTab>
-              <AccordionTab header="Can I request specific times and products to ship?">
-                <div className="flex flex-col items-center justify-center font-semibold">
+              <AccordionTab
+                header={
+                  <div className="relative flex items-center justify-center py-4 text-white font-semibold">
+                    <span>
+                      Can I request specific times and products to ship?
+                    </span>
+                    <FaChevronDown className="absolute right-6" />
+                  </div>
+                }
+              >
+                <div className="flex flex-col px-12 text-white text-start">
                   <p className="m-5">
                     Yes, you can request specific times and products on
                     Agriculturae. Our platform is designed to offer maximum
@@ -282,14 +431,28 @@ const Home = () => {
                   </ul>
                 </div>
               </AccordionTab>
-              <AccordionTab header="Where are you located?">
-                <p className="m-5 font-semibold">
+              <AccordionTab
+                header={
+                  <div className="relative flex items-center justify-center py-4 text-white font-semibold">
+                    <span>Where are you located?</span>
+                    <FaChevronDown className="absolute right-6" />
+                  </div>
+                }
+              >
+                <p className="text-light px-12">
                   Our headquarters is situated in the city of Vancouver, British
                   Columbia. 123 Farmland Ave Vancouver, BC, Canada
                 </p>
               </AccordionTab>
-              <AccordionTab header="Is Agriculturae free?">
-                <p className="m-5 font-semibold">
+              <AccordionTab
+                header={
+                  <div className="relative flex items-center justify-center py-4 text-white font-semibold">
+                    <span>Is Agriculturae free?</span>
+                    <FaChevronDown className="absolute right-6" />
+                  </div>
+                }
+              >
+                <p className="text-light px-12">
                   To help farmers and buyers get acquainted with our platform
                   and experience its benefits, Agriculturae offers the first
                   year of service completely free of charge. This includes full
@@ -306,18 +469,11 @@ const Home = () => {
 
           {/* Footer */}
           <div
-            className="flex flex-col w-full bg-light-green min-h-[700px] font-montserrat p-24"
+            className="flex flex-col w-full bg-[#042E04] min-h-[400px] font-montserrat p-24"
             id="footer"
           >
-            <div className="h-[300px]">
-              <img
-                src={toAbsoluteUrl("media/images/logos/logo-sq-trans.png")}
-                alt="logo-footer"
-                className="h-full"
-              />
-            </div>
             <div className="grid grid-cols-9 gap-5 max-w-screen-2xl mx-auto text-white">
-              <div className="col-span-9 md:col-span-2 flex flex-col items-start justify-start space-y-5 h-full">
+              <div className="col-span-9 md:col-span-3 flex flex-col items-start justify-start space-y-5 h-full">
                 <h5 className="text-3xl text-white font-bold">
                   Contact Information
                 </h5>
@@ -344,17 +500,7 @@ const Home = () => {
                 </a>
               </div>
 
-              <div className="col-span-9 md:col-span-2 flex flex-col items-start justify-start space-y-5 h-full">
-                <h5 className="text-3xl text-white font-bold">
-                  Social Media Links
-                </h5>
-                <a href="#">Facebook</a>
-                <a href="#">Twitter</a>
-                <a href="#">Linkedin</a>
-                <a href="#">Instagram</a>
-              </div>
-
-              <div className="col-span-9 md:col-span-2 flex flex-col items-start justify-start space-y-5 h-full">
+              <div className="col-span-9 md:col-span-3 flex flex-col items-start justify-start space-y-5 h-full">
                 <h5 className="text-3xl text-white font-bold">Legal</h5>
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>

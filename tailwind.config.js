@@ -7,7 +7,7 @@ export default {
         sans: ["Roboto", "sans-serif"],
       },
       colors: {
-        primary: "#1c603a",
+        primary: "#2C5F2D",
         "primary-light": "#C5D9BE",
         "light-green": "#9EC253", // "light" is a reserved word in Tailwind, so we use "light" instead of "light
         light: "#ebfaeb",

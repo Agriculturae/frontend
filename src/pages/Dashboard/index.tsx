@@ -1,33 +1,23 @@
-import { Button } from "primereact/button";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/slices/authSlice";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../redux/store";
 
 const Dashboard = () => {
-  const accessToken = useSelector((state: RootState) => state.auth.accessToken);
-
-  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(accessToken);
-  }, [accessToken]);
+    if (user?.type === "Farmer" && user.farmId) {
+      navigate(`/farm/${user.farmId}`);
+    } else if (user?.type === "Buyer" && user.businessId) {
+      navigate(`/business/${user.businessId}`);
+    }
+  }, []);
+
   return (
-    <div className="space-x-2">
-      <h1>Dashboard</h1>
-      <h2>Access Token: {accessToken}</h2>
-      <Button
-        label="Logout"
-        icon="pi pi-sign-out"
-        className="p-button-outlined p-button-danger"
-        onClick={() => {
-          localStorage.removeItem("accessToken");
-          dispatch(logout());
-          navigate("/auth/login");
-        }}
-      />
+    <div className="fixed top-0 left-0 w-screen h-screen bg-white z-10">
+      &nbsp;
     </div>
   );
 };

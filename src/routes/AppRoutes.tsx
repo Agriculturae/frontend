@@ -9,8 +9,7 @@ const AppRoutes = () => {
 
   return (
     <BrowserRouter>
-      {accessToken && <PrivateRoutes />}
-      <PublicRoutes />
+      {accessToken ? <PrivateRoutes /> : <PublicRoutes />}
     </BrowserRouter>
   );
 };
