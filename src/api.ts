@@ -3,7 +3,7 @@ import store from "./redux/store";
 import { logout } from "./redux/slices/authSlice";
 
 const api = axios.create({
-  baseURL: "http://localhost:3001", // Backend API base URL
+  baseURL: "https://api.agriculturae.com", // Backend API base URL
 });
 
 // Request interceptor to add the access token to headers
