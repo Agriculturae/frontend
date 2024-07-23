@@ -1,14 +1,19 @@
 import { PrimeReactProvider } from "primereact/api";
 import AppRoutes from "./routes/AppRoutes";
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import store, { persistor } from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
-
+  const value = {
+    ripple: true,
+  };
   return (
-    <PrimeReactProvider>
+    <PrimeReactProvider value={value}>
       <Provider store={store}>
-        <AppRoutes />
+        <PersistGate loading={null} persistor={persistor}>
+          <AppRoutes />
+        </PersistGate>
       </Provider>
     </PrimeReactProvider>
   );
