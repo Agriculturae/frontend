@@ -62,7 +62,7 @@ const Map = ({
   return (
     <>
       <LoadScript
-        googleMapsApiKey={import.meta.env.VITE_MAPS_API_KEY}
+        googleMapsApiKey={"AIzaSyBmoY_BBwUk02V79Ce2ROT3OAUfwHuiR9A"}
         libraries={["marker"]}
       >
         <GoogleMap
